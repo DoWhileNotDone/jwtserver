@@ -1,10 +1,10 @@
 {
-    "name": "davegthemighty/oauthserver",
-    "description": "Sample Oauth Server built up from various web tutorials. Please don't use in the wild.",
+    "name": "davegthemighty/jwtserver",
+    "description": "Sample JWT Server built up from various web tutorials. Please don't use in the wild.",
     "type": "project",
     "keywords": [
         "slim",
-        "oauth",
+        "jwt",
         "api"
     ],
     "authors": [
@@ -34,12 +34,12 @@
     },
     "autoload": {
         "psr-4": {
-            "OAuthServer\\": "src/"
+            "JWTServer\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "OAuthServer\\Test\\": "tests/"
+            "JWTServer\\Test\\": "tests/"
         }
     },
     "scripts": {

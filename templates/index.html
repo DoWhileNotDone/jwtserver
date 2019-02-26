@@ -6,9 +6,13 @@
 {% endblock %}
 {% block content %}
 
-<h1>OAuth Server</h1>
+<h1>JWT Server</h1>
 <p class="lead">
 Nothing swank, just practising the basics.
 </p>
+
+{% if user is defined and user is not null %}
+  Welcome {{user.name}}!
+{% endif %}
 
 {% endblock %}

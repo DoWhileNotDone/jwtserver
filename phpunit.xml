@@ -1,6 +1,6 @@
 <phpunit bootstrap="vendor/autoload.php">
     <testsuites>
-        <testsuite name="OauthServer">
+        <testsuite name="JWTServer">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

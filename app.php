@@ -24,9 +24,8 @@ require __DIR__ . "/config/middleware.php";
 
 # Define Routes
 require __DIR__ . "/routes/index.php";
-require __DIR__ . "/routes/application.php";
-require __DIR__ . "/routes/authorize.php";
-require __DIR__ . "/routes/token.php";
-require __DIR__ . "/routes/register.php";
+require __DIR__ . "/routes/user.php";
+require __DIR__ . "/routes/login.php";
+require __DIR__ . "/routes/logout.php";
 
 $app->run();

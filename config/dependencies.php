@@ -25,20 +25,6 @@ $container['db'] = function ($c) use ($capsule) {
     return $capsule;
 };
 
-// $container['oauthserver'] = function ($container) {
-//     // Use the existing database connection, in PDO form, for initialising the
-//     // OAuth server
-//     $storage= $container->get('db')->getConnection()->getPdo();
-//
-//     $server = new OAuth2\Server($storage);
-//
-//     //FIXME: Sort out Oauth Server Configuration
-//     $server->addGrantType(new OAuth2\GrantType\AuthorizationCode($storage)); // or any grant type you like!
-//     //$server->handleTokenRequest(OAuth2\Request::createFromGlobals())->send();
-//
-//     return $server;
-// };
-
 $container["logger"] = function ($container) {
     $logname = getenv("LOG_NAME");
     $logger = new Logger($logname);

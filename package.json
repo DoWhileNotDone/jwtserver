@@ -1,5 +1,5 @@
 {
-  "name": "davegthemighty-oauthserver",
+  "name": "davegthemighty-jwtserver",
   "version": "1.0.0",
   "description": "php practice",
   "main": "index.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davegthemighty/oauthserver.git"
+    "url": "git+https://github.com/davegthemighty/jwtserver.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/davegthemighty/oauthserver/issues"
+    "url": "https://github.com/davegthemighty/jwtserver/issues"
   },
-  "homepage": "https://github.com/davegthemighty/oauthserver#readme",
+  "homepage": "https://github.com/davegthemighty/jwtserver#readme",
   "dependencies": {
     "bootstrap": "^4.2.1",
     "jquery": "^3.3.1",

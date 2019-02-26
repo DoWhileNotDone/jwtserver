@@ -46,4 +46,18 @@ class Token
           'payload' => $payload,
         ];
     }
+
+    /**
+     * Check two signature hashes match. One signature is supplied by the token - we need to decode this
+     * The other is newly generated from the token's header and payload. They
+     * should match - if they don't someone has likely tampered with the token.
+     */
+    public static function validate(string $token) : bool
+    {
+        list($header, $payload, $signature) = explode(".", $token);
+
+        $recreated_signature = hash_hmac('sha256', "$header.$payload", Token::$secret, true);
+
+        return hash_equals(self::base64URLDecode($signature), $recreated_signature);
+    }
 }

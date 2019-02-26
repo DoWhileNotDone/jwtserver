@@ -7,7 +7,7 @@ use Slim\Http\Response;
 $app->get("/login", function (Request $request, Response $response, array $arguments): Response {
     $response = $this->view->render($response, 'login/form.html', $arguments);
     return $response;
-});
+})->setName('login');
 
 $app->post("/login", function (Request $request, Response $response, array $arguments): Response {
     //TODO: Get Form Data
@@ -31,4 +31,4 @@ $app->post("/login", function (Request $request, Response $response, array $argu
 
     //Redirect to location
     return $response->withStatus(302)->withHeader('Location', $location);
-});
+})->setName('login');

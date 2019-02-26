@@ -8,4 +8,4 @@ $app->any("/logout", function (Request $request, Response $response, array $argu
     $location = "/";
     //Redirect to location
     return $response->withStatus(302)->withHeader('Location', $location);
-});
+})->setName('logout');

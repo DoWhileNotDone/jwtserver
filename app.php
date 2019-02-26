@@ -27,5 +27,6 @@ require __DIR__ . "/routes/index.php";
 require __DIR__ . "/routes/user.php";
 require __DIR__ . "/routes/login.php";
 require __DIR__ . "/routes/logout.php";
+require __DIR__ . "/routes/token.php";
 
 $app->run();

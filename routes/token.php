@@ -23,8 +23,15 @@ $app->get("/token", function (Request $request, Response $response, array $argum
 
 $app->get("/decode", function (Request $request, Response $response, array $arguments): Response {
 
-    $parsedBody = $request->getParsedBody();
-    $token = $parsedBody['token'];
+    if (!$request->hasHeader('authorization')) {
+        die('token not valid!');
+    }
+
+    $authorizationArray = $request->getHeader('authorization');
+    //FIXME: Check there is only one
+    $authorization = array_pop($authorizationArray);
+
+    list($token) = sscanf($authorization, 'Bearer %s');
 
     if (!Token::validate($token)) {
         die('token not valid!');

@@ -3,11 +3,32 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 
+use JWTServer\Utility\Token;
+
 // Application middleware
 // e.g: $app->add(new \Slim\Csrf\Guard);
+//
+$checkRoute = function (Request $request, Response $response, callable $next) {
+    $route = $request->getAttribute('route');
+
+    //FIXME: Check route is valid.
+    if (!$route) {
+        die('Not A Valid Route');
+    }
+
+    $routeName = $route->getName();
+
+    if (!$routeName) {
+        die('Not A Valid Route Name');
+    }
+
+    $response = $next($request, $response);
+    return $response;
+};
 
 // Check the user is logged in when necessary.
-$loggedInMiddleware = function ($request, $response, $next) {
+$loggedInMiddleware = function (Request $request, Response $response, callable $next) {
+
     $route = $request->getAttribute('route');
     $routeName = $route->getName();
 
@@ -29,5 +50,39 @@ $loggedInMiddleware = function ($request, $response, $next) {
     return $response;
 };
 
-// Apply the middleware to every request.
+// Check that the user has provided a JWT for protected resources
+$jwtMiddleware = function (Request $request, Response $response, callable $next) {
+
+    $route = $request->getAttribute('route');
+    $routeName = $route->getName();
+
+    # Define routes that user requires a jwt to be supplied.
+    $protectedRoutesArray = array(
+        'resource',
+    );
+
+    // FIXME: Use Middleware options to error successfully.
+    if (in_array($routeName, $protectedRoutesArray)) {
+        if (!$request->hasHeader('authorization')) {
+            die('token not valid!');
+        }
+        $authorizationArray = $request->getHeader('authorization');
+        //FIXME: Check there is only one
+        $authorization = array_pop($authorizationArray);
+
+        list($token) = sscanf($authorization, 'Bearer %s');
+
+        if (!Token::validate($token)) {
+            die('token not valid!');
+        }
+    }
+
+    // Proceed as normal...
+    $response = $next($request, $response);
+
+    return $response;
+};
+
 $app->add($loggedInMiddleware);
+$app->add($jwtMiddleware);
+$app->add($checkRoute);

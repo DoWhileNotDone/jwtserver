@@ -52,8 +52,12 @@ class Token
      * The other is newly generated from the token's header and payload. They
      * should match - if they don't someone has likely tampered with the token.
      */
-    public static function validate(string $token) : bool
+    public static function validate(?string $token) : bool
     {
+        if (!$token) {
+            return false;
+        }
+
         list($header, $payload, $signature) = explode(".", $token);
 
         $recreated_signature = hash_hmac('sha256', "$header.$payload", Token::$secret, true);

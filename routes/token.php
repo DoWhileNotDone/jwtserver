@@ -21,23 +21,9 @@ $app->get("/token", function (Request $request, Response $response, array $argum
         ->write(json_encode($token, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 })->setName('token');
 
-$app->get("/decode", function (Request $request, Response $response, array $arguments): Response {
+$app->get("/decode/{token}", function (Request $request, Response $response, array $arguments): Response {
 
-    if (!$request->hasHeader('authorization')) {
-        die('token not valid!');
-    }
-
-    $authorizationArray = $request->getHeader('authorization');
-    //FIXME: Check there is only one
-    $authorization = array_pop($authorizationArray);
-
-    list($token) = sscanf($authorization, 'Bearer %s');
-
-    if (!Token::validate($token)) {
-        die('token not valid!');
-    }
-
-    $token_parts = Token::decode($token);
+    $token_parts = Token::decode($arguments['token']);
 
     return $response->withStatus(200)
         ->withHeader("Content-Type", "text/plain")

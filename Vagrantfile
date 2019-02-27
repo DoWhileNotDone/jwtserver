@@ -168,7 +168,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
    You are now up and running.
 
-   This is the >> OAUTH Server
+   This is the >> JWT Server
 
    The URL is 192.168.50.51
 

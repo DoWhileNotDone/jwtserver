@@ -3,6 +3,7 @@
 {% block title %}User Login{% endblock %}
 {% block head %}
     {{ parent() }}
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {% endblock %}
 {% block content %}
 
@@ -17,6 +18,7 @@
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="User Password" required>
         </div>
+        <div class="g-recaptcha" data-sitekey="6LcH35QUAAAAAGbUvEsy7mQ8-LU22TygXpSWeVli"></div>
         <button type="submit" class="btn btn-info">Submit</button>
     </form>
 </div>

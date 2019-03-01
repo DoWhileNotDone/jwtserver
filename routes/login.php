@@ -10,8 +10,25 @@ $app->get("/login", function (Request $request, Response $response, array $argum
 })->setName('login');
 
 $app->post("/login", function (Request $request, Response $response, array $arguments): Response {
-    //TODO: Get Form Data
+
     $parsedBody = $request->getParsedBody();
+    if (isset($parsedBody['g-recaptcha-response']) && !empty($parsedBody['g-recaptcha-response'])) {
+        $captchaResponse = $parsedBody['g-recaptcha-response'];
+        $secret = "6LcH35QUAAAAAOiysWJV-liSQt_HA5MO9uL8UH6n";
+
+        $verify_url = sprintf(
+            'https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s',
+            $secret,
+            $captchaResponse
+        );
+        $verifyResponse = file_get_contents($verify_url);
+        $responseData = json_decode($verifyResponse);
+
+        if (!$responseData->success) {
+            echo 'Invalid Captcha';
+            return $response->withStatus(403);
+        }
+    }
 
     $user = User::where('email', $parsedBody['email'])->first();
     if (!$user) {
